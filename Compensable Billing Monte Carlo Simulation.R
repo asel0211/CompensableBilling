@@ -13,6 +13,11 @@
 # cost: Cost of recovery in wages
 # total: Total $ recovered
 
+library(tidyverse)
+library(mc2d)
+library(FinancialMath)
+
+
 results2 = NULL
 for (k in 1:50000) # Number of iterations
 {
@@ -25,7 +30,7 @@ for (k in 1:50000) # Number of iterations
         growth <- rpert(1, min=1, mode=1.0274, max=1.0548, shape=4)
         per.comp <- rpert(1, min=0.0322, mode=0.0358, max=0.0394, shape=4)
         price.patient <- rpert(1, min=19.68, mode=21.87, max=24.06, shape=4)
-        #price.patent <- rpert(1, min 60.14, mode=66.82, max=73.50, shape=4)  
+        # price.patient <- rpert(1, min=60.14, mode=66.82, max=73.50, shape=4)  
         per.rec <- rpert(1, min=0.80, mode=0.90, max=1, shape=4)
         cost.patient <- rpert(1, min=0.0233, mode=0.0260, max=0.0285, shape=4)
         
@@ -40,6 +45,8 @@ for (k in 1:50000) # Number of iterations
         }
     
     npv <- NPV(cf0=69756.69, cf=results$total, times=1:30, i=0.02, plot=FALSE)
+    # npv <- NPV(cf0=180750.00, cf=results$total, times=1:30, i=0.02, plot=FALSE)
+    
             # npv function requires FinancialMath package
     
     results2 = rbind(results2, data.frame(npv))
